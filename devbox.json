@@ -3,7 +3,8 @@
   "packages": [
     "just@latest",
     "nushell@latest",
-    "unzip@latest"
+    "unzip@latest",
+    "android-tools@latest"
   ],
   "shell": {
     "init_hook": [

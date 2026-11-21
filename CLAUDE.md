@@ -13,7 +13,8 @@ This folder holds data files, tools and notes for dialing in espresso with sever
 ### Logging: Beanconqueror (Android)
 App: https://beanconqueror.com/
 - Shots are logged in the **Beanconqueror** app, which is connected to a **Bluetooth scale**. The scale records the weight curve and flow during the shot.
-- Data comes into this folder as Beanconqueror exports: the app's backup/export (JSON in a ZIP), plus any CSV or brew-graph exports.
+- The app runs on an **Android tablet** (package `com.beanconqueror.app`). The data stays on the tablet, because the app has no cloud sync.
+- Data comes into this folder over **adb**, driven by `just` tasks (see "Getting data off the tablet" below).
 - Beanconqueror records **beans** (roaster, roast date, origin, process), **brews** (grind setting, dose in, yield out, brew time, temperature, rating, notes) and **flow profiles** from the scale.
 - Treat export files as source data. Never edit them in place. Put derived or cleaned data in separate files.
 
@@ -68,26 +69,52 @@ Rules:
 ## Layout
 
 ```
-data/raw/<timestamp>/  # Beanconqueror exports, untouched (one folder per import)
+data/raw/<timestamp>/  # Beanconqueror exports, untouched, gitignored (one folder per import)
 data/derived/          # beans.csv, brews.csv: flattened by `just parse`
 beans/                 # one markdown file per bean: details + best recipe + history
 notes/                 # equipment-log.md (grinder zero, OPV, baskets), technique notes
 scripts/               # nushell scripts (lib.nu holds shared helpers)
 justfile               # tasks wired to scripts
-devbox.json            # just, nushell, unzip
+devbox.json            # just, nushell, unzip, android-tools (adb)
 ```
+
+## Getting data off the tablet
+
+Beanconqueror writes two kinds of export:
+
+| Kind | Where on the tablet | Contents |
+|------|---------------------|----------|
+| Automatic daily backup | `/sdcard/Android/data/com.beanconqueror.app/files/Download/Beanconqueror_export/Beanconqueror_automatic_export_DD_MM_YYYY.zip` (7 days kept) | JSON only: **no flow profiles or photos** |
+| Manual full export | `Beanconqueror.zip` in the folder you pick (choose **Download**) | JSON + flow profiles + images |
+
+Make a full export in the app: **Settings → Full export to directory → Download**.
+
+Inside each zip: `Beanconqueror.json`, plus chunk files `Beanconqueror_Brews_N.json` (500 brews each) and `Beanconqueror_Beans_N.json`. `parse.nu` merges the chunk files.
+
+Connecting (one-time setup, then reconnect as needed):
+1. On the tablet, turn on Developer options, then **Wireless debugging**. The tablet must be on the same Wi-Fi network as this computer.
+2. Tap **Pair device with pairing code**, then run `just tablet-pair <ip:pairport> <code>`.
+3. Run `just tablet-connect <ip:port>`, using the port shown on the main Wireless debugging screen, which is different from the pairing port. The address is saved in `.tablet` (gitignored). The port changes when Wireless debugging restarts, so run `tablet-connect` again after that.
+4. Or plug in USB with USB debugging on. No pairing is needed.
+
+Then run `just pull`. It uses the newest full export if there is one, otherwise the newest automatic backup (`just pull --auto` always takes the newest). It copies the zip into `data/raw/<timestamp>-full|auto/`, unzips it and runs `parse`.
 
 ## Tasks
 
 | Task | What it does |
 |------|--------------|
-| `just import <file>` | Copy a Beanconqueror export (.zip or .json) into `data/raw/<timestamp>/`, unzipping it if needed |
+| `just tablet-pair <ip:port> <code>` | Pair with the tablet's Wireless debugging |
+| `just tablet-connect <ip:port>` | Connect over Wi-Fi and remember the address |
+| `just tablet-status` | Show the connected tablet, its Android version, and whether Beanconqueror is installed |
+| `just tablet-list` | List the Beanconqueror export zips on the tablet |
+| `just pull [--auto] [--no-parse]` | Pull the newest export into `data/raw/` and parse it |
+| `just import <file>` | Import an export that is already on this computer |
 | `just parse` | Flatten the newest import into `data/derived/beans.csv` and `brews.csv` |
 | `just brews [bean] [n]` | Show the last *n* brews, optionally filtered by part of a bean name (e.g. `just brews ethiopia 10`) |
 | `just new-bean "<name>"` | Create `beans/<slug>.md` from the template |
 | `just beans` | List bean files |
 
-`scripts/parse.nu` assumes the Beanconqueror backup layout (`BEANS`, `BREWS`, and brew fields such as `grind_size`, `grind_weight`, `brew_beverage_quantity`, `brew_time`, `brew_temperature`, `rating`). These names have **not yet been checked against a real export**. Check them against the first real export and fix the script if they differ. Flow-profile data from the scale is not parsed yet.
+`scripts/parse.nu` assumes the Beanconqueror backup layout (`BEANS`, `BREWS` and their chunk files, and brew fields such as `grind_size`, `grind_weight`, `brew_beverage_quantity`, `brew_time`, `brew_temperature`, `rating`). These names have **not yet been checked against a real export**. Check them against the first real export and fix the script if they differ. The `flow_profile` path is recorded for each brew, but the flow curves themselves are not parsed yet.
 
 ## Tooling conventions
 
