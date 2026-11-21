@@ -26,6 +26,10 @@ tablet-list:
 pull *flags:
     nu scripts/tablet.nu pull {{flags}}
 
+# Import newest Beanconqueror*.zip (+ brews*.zip flow profiles) from ~/Downloads (sent via KDE Connect) and parse it
+inbox *flags:
+    nu scripts/inbox.nu {{flags}}
+
 # Copy a Beanconqueror export (.zip or .json) already on this computer into data/raw, unzipping if needed
 import file:
     nu scripts/import.nu '{{file}}'
@@ -33,6 +37,10 @@ import file:
 # Flatten the latest raw export into data/derived/{beans,brews}.csv
 parse:
     nu scripts/parse.nu
+
+# Summarize scale flow profiles into data/derived/shots.csv (one row per shot, joined to brews)
+flows:
+    nu scripts/flows.nu
 
 # Show recent brews (optionally filter by bean name substring)
 brews bean="" n="20":

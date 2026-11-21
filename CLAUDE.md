@@ -70,7 +70,7 @@ Rules:
 
 ```
 data/raw/<timestamp>/  # Beanconqueror exports, untouched, gitignored (one folder per import)
-data/derived/          # beans.csv, brews.csv: flattened by `just parse`
+data/derived/          # beans.csv, brews.csv (`just parse`), shots.csv (`just flows`)
 beans/                 # one markdown file per bean: details + best recipe + history
 notes/                 # equipment-log.md (grinder zero, OPV, baskets), technique notes
 scripts/               # nushell scripts (lib.nu holds shared helpers)
@@ -88,6 +88,14 @@ Beanconqueror writes two kinds of export:
 | Manual full export | `Beanconqueror.zip` in the folder you pick (choose **Download**) | JSON + flow profiles + images |
 
 Make a full export in the app: **Settings → Full export to directory → Download**.
+
+**Main path today: KDE Connect.** This computer has no Bluetooth. Share the export from the tablet to this computer with KDE Connect. It lands in `~/Downloads/Beanconqueror.zip`, and `just inbox` imports and parses the newest copy. The adb tasks below are the alternative.
+
+Seen in a real export (2026-11-21, confirmed in the app source): **Full export to directory** writes `Beanconqueror.zip`, which holds **only JSON**, plus a separate **`brews/` folder** next to it containing `<brew-uuid>_flow_profile.json`, one file per shot. So send **both**: the zip, and the `brews` folder compressed (`brews.zip`) with the tablet's file manager. `just inbox` merges any `brews*.zip` newer than the export into the same import, then runs `parse` and `flows`. Top-level JSON keys: `BEANS, BREWS, MILL, PREPARATION, SETTINGS, VERSION`.
+
+Flow profile files contain **scale data only**: `weight` (`brew_time`, `actual_smoothed_weight`, …) and `realtimeFlow` (`flow_value` in g/s), at about 10 Hz. `pressureFlow` and `temperatureFlow` are empty because the Apex does not report to the app. The scale timer starts when weight is first detected, so "first drip" is about 0 s and pre-infusion is not visible.
+
+**`SETTINGS` holds the Visualizer username and password in plain text.** That is why `data/raw/` is gitignored. Never copy settings into `data/derived/`, notes, or any file that gets committed.
 
 Inside each zip: `Beanconqueror.json`, plus chunk files `Beanconqueror_Brews_N.json` (500 brews each) and `Beanconqueror_Beans_N.json`. `parse.nu` merges the chunk files.
 
@@ -108,13 +116,20 @@ Then run `just pull`. It uses the newest full export if there is one, otherwise 
 | `just tablet-status` | Show the connected tablet, its Android version, and whether Beanconqueror is installed |
 | `just tablet-list` | List the Beanconqueror export zips on the tablet |
 | `just pull [--auto] [--no-parse]` | Pull the newest export into `data/raw/` and parse it |
+| `just inbox [--no-parse]` | Import the newest `~/Downloads/Beanconqueror*.zip` (sent with KDE Connect) and parse it |
 | `just import <file>` | Import an export that is already on this computer |
 | `just parse` | Flatten the newest import into `data/derived/beans.csv` and `brews.csv` |
+| `just flows` | Turn flow profiles into `data/derived/shots.csv`: per shot `main_flow_gps` (g/s between 20–80% of the final weight), `flow_cv` (flow steadiness), `flow_spikes` (readings above 2× the mean, a sign of gushing or channeling), `t_to_95pct_s`, `scale_final_g` |
 | `just brews [bean] [n]` | Show the last *n* brews, optionally filtered by part of a bean name (e.g. `just brews ethiopia 10`) |
 | `just new-bean "<name>"` | Create `beans/<slug>.md` from the template |
 | `just beans` | List bean files |
 
-`scripts/parse.nu` assumes the Beanconqueror backup layout (`BEANS`, `BREWS` and their chunk files, and brew fields such as `grind_size`, `grind_weight`, `brew_beverage_quantity`, `brew_time`, `brew_temperature`, `rating`). These names have **not yet been checked against a real export**. Check them against the first real export and fix the script if they differ. The `flow_profile` path is recorded for each brew, but the flow curves themselves are not parsed yet.
+Field names in `scripts/parse.nu` were **checked against a real export** on 2026-11-21: `grind_size` (a string, e.g. `"12.5"`), `grind_weight` (dose), `brew_beverage_quantity` (yield), `brew_time` (s), `brew_temperature` (often 0, meaning not recorded), `rating`, `note`, `bean` (uuid → BEANS), `mill` and `method_of_preparation` (uuids; only one of each: DF64 Gen 2, MiiCoffee Apex V2). Flow curves are summarized by `scripts/flows.nu`.
+
+Data quirks to handle when analyzing:
+- The same bean name sometimes appears with a trailing space (`"Apollo"` vs `"Apollo "`). These are separate bean entries, often different bags, so do not merge them blindly.
+- Some grind values have typos (`"8. 5"`).
+- Some brews are not espresso (e.g. Nestor Lasso at about a 1:15 ratio). Filter by ratio or time before analyzing espresso.
 
 ## Tooling conventions
 

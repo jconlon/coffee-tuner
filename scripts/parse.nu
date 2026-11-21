@@ -4,7 +4,7 @@
 # come through as empty rather than failing.
 use lib.nu *
 
-def ts [v] { if ($v | is-empty) { null } else { $v * 1_000_000_000 | into datetime } }
+def ts [v] { if ($v | is-empty) { null } else { $v * 1_000_000_000 | into datetime | date to-timezone local | format date "%Y-%m-%d %H:%M" } }
 
 # Records from the main JSON key plus all matching chunk files, de-duplicated by uuid
 def collect [dir: path, main: record, key: string, chunk: string] {
@@ -37,6 +37,7 @@ def main [] {
     let brew_rows = ($brews | each {|r|
         let bean_id = ($r | get -o bean)
         {
+            uuid: ($r.config | get -o uuid)
             time: (ts ($r.config | get -o unix_timestamp))
             bean: (if ($bean_id | is-empty) { null } else { $bean_names | get -o $bean_id })
             grind: ($r | get -o grind_size)
