@@ -1,0 +1,23 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.22.0/.schema/devbox.schema.json",
+  "packages": [
+    "just@latest",
+    "nushell@latest",
+    "unzip@latest"
+  ],
+  "shell": {
+    "init_hook": [
+      "export NVM_DIR=\"${NVM_DIR:-$HOME/.nvm}\"",
+      "[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"",
+      "for d in \"$HOME/.local/bin\" \"$HOME/.claude/local\"; do [ -d \"$d\" ] && case \":$PATH:\" in *\":$d:\"*) ;; *) export PATH=\"$PATH:$d\" ;; esac; done",
+      "command -v claude >/dev/null 2>&1 || echo 'warning: claude CLI not found on PATH (expected via nvm, ~/.local/bin or ~/.claude/local)' >&2"
+    ],
+    "scripts": {
+      "agent":       ["claude --continue --name coffee-tuner"],
+      "agent-new":   ["claude --name coffee-tuner"],
+      "agent-plan":  ["claude --name coffee-tuner --model opus --permission-mode plan"],
+      "agent-small": ["claude --name coffee-tuner --model haiku"],
+      "agent-big":   ["claude --name coffee-tuner --model opus"]
+    }
+  }
+}
