@@ -1,23 +1,23 @@
-uuid,name,roaster,roast_date,roast,weight,finished
-2148db8c-47e3-4611-b5bd-7ca076febc38,Apollo,Counter Culture,2025-12-19T18:44:56.828Z,UNKNOWN,340,true
-0ce73df0-21e2-48a6-8d1c-90c4bfc9b202,Nestor Lasso,HEX,2025-11-18T21:08:02.562Z,UNKNOWN,0,true
-01297690-3173-4944-8989-126cd2836a96,Aponte Honey ,Casablanca ,2026-02-06T21:41:39.203Z,UNKNOWN,340,true
-e293d2b9-8bca-4072-92bd-20c85723147c,Apollo ,Counter Culture,2026-02-20T19:10:19.134Z,UNKNOWN,340,true
-7c7150b6-4d3a-420d-ad86-cb7cbf658abd,Signature ,Maven,2026-01-22T20:28:28.997Z,UNKNOWN,320,true
-a4fd62a4-6258-40cb-8e13-1d393abfac29,Aponte Honey,Casablanca ,2026-04-08T16:13:24.588Z,UNKNOWN,340,true
-5ef2a3c3-79ac-4633-b1b1-be44e9ca040e,Apollo,Counter Culture,2026-04-10T17:19:38.819Z,UNKNOWN,340,true
-d3f2827d-af31-4645-a660-0c2142c9a4c8,Hologram ,Counter Culture,2026-05-01T17:13:28.205Z,UNKNOWN,340,true
-02aa88f4-c43a-4f8f-8ef2-b4f16a1a927d,Apollo ,Counter Culture,2026-05-08T16:11:40.238Z,UNKNOWN,340,true
-d0822cec-c079-4643-bcfe-3e7850e15921,Apollo ,Counter Culture,2026-05-15T18:34:31.837Z,UNKNOWN,340,true
-9994d789-c87c-4dde-bffd-5e3fb1779adb,Colombia La Quebrada,Parlor Coffee,2026-05-25T17:28:38.254Z,UNKNOWN,227,true
-c6f02f33-17c6-4d1f-8637-0137c978eba7,Apollo ,Counter Culture,2026-05-15T16:38:56.478Z,UNKNOWN,340,true
-b9582732-9780-4a0d-a17a-e9c77aefeb8a,Apollo ,Counter Culture ,2026-05-15T17:58:15.639Z,UNKNOWN,340,true
-ebc8e368-df73-477f-87c1-4a742f9dcd2d,Heartstrings,Wonderstate,2026-06-29T17:58:30.919Z,UNKNOWN,298,true
-61e8d87b-aec1-45d5-9e31-62721291f46f,Organic Ethiopia Yirgacheffe,Orinoco,,UNKNOWN,340,true
-067aedb2-661a-4381-a093-cfc4c89397c5,Toldopamba,Wonderstate,2026-07-28T15:48:27.873Z,UNKNOWN,680.3886,true
-b58d7c4d-4120-475d-8321-da241c15defb,Heartstrings ,Wonderstate,2026-09-21T16:41:12.153Z,UNKNOWN,297,true
-ecac81cd-9199-4204-85d0-9f13ab02a143,Heartstrings ,Wonderstate,2026-09-29T20:41:35.584Z,UNKNOWN,297,true
-70506b47-5709-41b9-baa4-ae5ad5988ec0,Rawanda Rwamatamu,Marceno's,2026-09-08T16:06:39.668Z,UNKNOWN,340,true
-64bb921f-f127-4262-a03e-a73fb355ba3b,Signature ,Maven,2026-10-22T19:35:52.602Z,UNKNOWN,240,true
-e5db6a33-8c0b-4a13-a0b0-14deadc3f6d7,Rawanda Rwamatamu,Marceno's,2026-11-12T19:54:38.618Z,UNKNOWN,340,false
-39fd3a32-d298-4a83-bb40-155856eb3c24,Guatemala San Isidro,Marceno's,2026-10-15T18:37:29.337Z,UNKNOWN,340,true
+uuid,name,coffee,roaster,roast_date,roast,weight,finished
+2148db8c-47e3-4611-b5bd-7ca076febc38,Apollo,Apollo,Counter Culture,2025-12-19,UNKNOWN,340,true
+0ce73df0-21e2-48a6-8d1c-90c4bfc9b202,Nestor Lasso,Nestor Lasso,HEX,2025-11-18,UNKNOWN,0,true
+01297690-3173-4944-8989-126cd2836a96,Aponte Honey ,Aponte Honey,Casablanca,2026-02-06,UNKNOWN,340,true
+e293d2b9-8bca-4072-92bd-20c85723147c,Apollo ,Apollo,Counter Culture,2026-02-20,UNKNOWN,340,true
+7c7150b6-4d3a-420d-ad86-cb7cbf658abd,Signature ,Signature,Maven,2026-01-22,UNKNOWN,320,true
+a4fd62a4-6258-40cb-8e13-1d393abfac29,Aponte Honey,Aponte Honey,Casablanca,2026-04-08,UNKNOWN,340,true
+5ef2a3c3-79ac-4633-b1b1-be44e9ca040e,Apollo,Apollo,Counter Culture,2026-04-10,UNKNOWN,340,true
+d3f2827d-af31-4645-a660-0c2142c9a4c8,Hologram ,Hologram,Counter Culture,2026-05-01,UNKNOWN,340,true
+02aa88f4-c43a-4f8f-8ef2-b4f16a1a927d,Apollo ,Apollo,Counter Culture,2026-05-08,UNKNOWN,340,true
+d0822cec-c079-4643-bcfe-3e7850e15921,Apollo ,Apollo,Counter Culture,2026-05-15,UNKNOWN,340,true
+9994d789-c87c-4dde-bffd-5e3fb1779adb,Colombia La Quebrada,Colombia La Quebrada,Parlor Coffee,2026-05-25,UNKNOWN,227,true
+c6f02f33-17c6-4d1f-8637-0137c978eba7,Apollo ,Apollo,Counter Culture,2026-05-15,UNKNOWN,340,true
+b9582732-9780-4a0d-a17a-e9c77aefeb8a,Apollo ,Apollo,Counter Culture,2026-05-15,UNKNOWN,340,true
+ebc8e368-df73-477f-87c1-4a742f9dcd2d,Heartstrings,Heartstrings,Wonderstate,2026-06-29,UNKNOWN,298,true
+61e8d87b-aec1-45d5-9e31-62721291f46f,Organic Ethiopia Yirgacheffe,Organic Ethiopia Yirgacheffe,Orinoco,,UNKNOWN,340,true
+067aedb2-661a-4381-a093-cfc4c89397c5,Toldopamba,Toldopamba,Wonderstate,2026-07-28,UNKNOWN,680.3886,true
+b58d7c4d-4120-475d-8321-da241c15defb,Heartstrings ,Heartstrings,Wonderstate,2026-09-21,UNKNOWN,297,true
+ecac81cd-9199-4204-85d0-9f13ab02a143,Heartstrings ,Heartstrings,Wonderstate,2026-09-29,UNKNOWN,297,true
+70506b47-5709-41b9-baa4-ae5ad5988ec0,Rawanda Rwamatamu,Rawanda Rwamatamu,Marceno's,2026-09-08,UNKNOWN,340,true
+64bb921f-f127-4262-a03e-a73fb355ba3b,Signature ,Signature,Maven,2026-10-22,UNKNOWN,240,true
+e5db6a33-8c0b-4a13-a0b0-14deadc3f6d7,Rawanda Rwamatamu,Rawanda Rwamatamu,Marceno's,2026-11-12,UNKNOWN,340,false
+39fd3a32-d298-4a83-bb40-155856eb3c24,Guatemala San Isidro,Guatemala San Isidro,Marceno's,2026-10-15,UNKNOWN,340,true

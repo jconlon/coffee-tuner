@@ -4,6 +4,12 @@
 # come through as empty rather than failing.
 use lib.nu *
 
+# ISO roast date (e.g. 2026-11-12T19:54:38.618Z) -> local YYYY-MM-DD
+def day [v] { if ($v | is-empty) { null } else { $v | into datetime | date to-timezone local | format date "%Y-%m-%d" } }
+
+# Trimmed text, or null when empty (names/roasters sometimes carry stray spaces)
+def clean [v] { if ($v | is-empty) { null } else { $v | into string | str trim } }
+
 def ts [v] { if ($v | is-empty) { null } else { $v * 1_000_000_000 | into datetime | date to-timezone local | format date "%Y-%m-%d %H:%M" } }
 
 # Records from the main JSON key plus all matching chunk files, de-duplicated by uuid
@@ -22,24 +28,36 @@ def main [] {
     let beans = (collect $dir $data BEANS Beans)
     let brews = (collect $dir $data BREWS Brews)
 
-    let bean_names = ($beans | reduce -f {} {|b, acc| $acc | upsert $b.config.uuid $b.name })
-
+    # Each BEANS entry is one bag (roast batch). `coffee` is the trimmed name: bags of the same coffee share it.
     let bean_rows = ($beans | each {|b| {
         uuid: $b.config.uuid
         name: $b.name
-        roaster: ($b | get -o roaster)
-        roast_date: ($b | get -o roastingDate)
+        coffee: (clean $b.name)
+        roaster: (clean ($b | get -o roaster))
+        roast_date: (day ($b | get -o roastingDate))
         roast: ($b | get -o roast)
         weight: ($b | get -o weight)
         finished: ($b | get -o finished)
     }})
 
+    let bags = ($bean_rows | reduce -f {} {|b, acc| $acc | upsert $b.uuid $b })
+
     let brew_rows = ($brews | each {|r|
         let bean_id = ($r | get -o bean)
+        let bag = (if ($bean_id | is-empty) { null } else { $bags | get -o $bean_id })
+        let time = (ts ($r.config | get -o unix_timestamp))
+        let roast_date = ($bag | get -o roast_date)
         {
             uuid: ($r.config | get -o uuid)
-            time: (ts ($r.config | get -o unix_timestamp))
-            bean: (if ($bean_id | is-empty) { null } else { $bean_names | get -o $bean_id })
+            time: $time
+            bean: ($bag | get -o name)
+            coffee: ($bag | get -o coffee)
+            roaster: ($bag | get -o roaster)
+            bean_uuid: $bean_id
+            roast_date: $roast_date
+            days_off_roast: (if ($roast_date | is-empty) or ($time | is-empty) { null } else {
+                (($time | str substring 0..9 | into datetime) - ($roast_date | into datetime)) / 1day | math floor
+            })
             grind: ($r | get -o grind_size)
             dose_g: ($r | get -o grind_weight)
             yield_g: ($r | get -o brew_beverage_quantity)
