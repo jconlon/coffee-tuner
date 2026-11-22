@@ -1,44 +1,6 @@
 {
   "lockfile_version": "1",
   "packages": {
-    "android-tools@latest": {
-      "last_modified": "2026-11-20T15:12:34Z",
-      "resolved": "github:NixOS/nixpkgs/9996594bd38077de6a018ec17453ba3d99182787#android-tools",
-      "source": "devbox-search",
-      "version": "37.0.0p1",
-      "systems": {
-        "aarch64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/vhdqxblmlszvg32d3rj7zz7szhxfwmy8-android-tools-37.0.0p1",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/vhdqxblmlszvg32d3rj7zz7szhxfwmy8-android-tools-37.0.0p1"
-        },
-        "aarch64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/sys103y7zkmm8hhhl2vypa0br6i8nlch-android-tools-37.0.0p1",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/sys103y7zkmm8hhhl2vypa0br6i8nlch-android-tools-37.0.0p1"
-        },
-        "x86_64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/4xbrjr4gck1i44cfsa7s5l8v16crwpp0-android-tools-37.0.0p1",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/4xbrjr4gck1i44cfsa7s5l8v16crwpp0-android-tools-37.0.0p1"
-        }
-      }
-    },
     "github:NixOS/nixpkgs/nixpkgs-unstable": {
       "last_modified": "2026-11-06T15:06:19Z",
       "resolved": "github:NixOS/nixpkgs/4fe25e12eb9f4c744966dd3de5a05246cf098601?lastModified=1793977579&narHash=sha256-WrSODdZFVIs%2FHh2NzC0bY%2BROByi0bATg8WfePX8dPj8%3D"

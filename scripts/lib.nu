@@ -21,6 +21,6 @@ export def ingest [src: path, --label: string = ""] {
 export def latest-import [] {
     let raw = (root | path join "data" "raw")
     let dirs = (ls $raw | where type == dir | sort-by name)
-    if ($dirs | is-empty) { error make {msg: "no imports in data/raw — run `just pull` or `just import <file>`"} }
+    if ($dirs | is-empty) { error make {msg: "no imports in data/raw — run `just inbox` or `just import <file>`"} }
     $dirs | last | get name
 }

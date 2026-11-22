@@ -14,7 +14,7 @@ This folder holds data files, tools and notes for dialing in espresso with sever
 App: https://beanconqueror.com/
 - Shots are logged in the **Beanconqueror** app, which is connected to a **Bluetooth scale**. The scale records the weight curve and flow during the shot.
 - The app runs on an **Android tablet** (package `com.beanconqueror.app`). The data stays on the tablet, because the app has no cloud sync.
-- Data comes into this folder over **adb**, driven by `just` tasks (see "Getting data off the tablet" below).
+- Data comes into this folder through **KDE Connect** and `just inbox` (see "Getting data off the tablet" below). The step-by-step procedure is in `README.md`.
 - Beanconqueror records **beans** (roaster, roast date, origin, process), **brews** (grind setting, dose in, yield out, brew time, temperature, rating, notes) and **flow profiles** from the scale.
 - Treat export files as source data. Never edit them in place. Put derived or cleaned data in separate files.
 
@@ -84,7 +84,8 @@ beans/                 # one markdown file per bean: details + best recipe + his
 notes/                 # equipment-log.md (grinder zero, OPV, baskets), technique notes
 scripts/               # nushell scripts (lib.nu holds shared helpers)
 justfile               # tasks wired to scripts
-devbox.json            # just, nushell, unzip, android-tools (adb)
+devbox.json            # just, nushell, unzip
+README.md              # the user's procedure: export → send → inbox → dial-in issues
 ```
 
 ## Getting data off the tablet
@@ -93,12 +94,12 @@ Beanconqueror writes two kinds of export:
 
 | Kind | Where on the tablet | Contents |
 |------|---------------------|----------|
-| Automatic daily backup | `/sdcard/Android/data/com.beanconqueror.app/files/Download/Beanconqueror_export/Beanconqueror_automatic_export_DD_MM_YYYY.zip` (7 days kept) | JSON only: **no flow profiles or photos** |
+| Automatic daily backup | App-private folder on the tablet (7 days kept); not used here | JSON only: **no flow profiles or photos** |
 | Manual full export | `Beanconqueror.zip` in the folder you pick (choose **Download**) | JSON + flow profiles + images |
 
 Make a full export in the app: **Settings → Full export to directory → Download**.
 
-**Main path today: KDE Connect.** This computer has no Bluetooth. Share the export from the tablet to this computer with KDE Connect. It lands in `~/Downloads/Beanconqueror.zip`, and `just inbox` imports and parses the newest copy. The adb tasks below are the alternative.
+**The only path: KDE Connect.** This computer is Ethernet-only with no Bluetooth (KDE Connect works over the LAN). Share the export from the tablet with KDE Connect. It lands in `~/Downloads/Beanconqueror.zip`, and `just inbox` imports and parses the newest copy. adb support was removed on 2026-11-21 because the user prefers this routine.
 
 Seen in a real export (2026-11-21, confirmed in the app source): **Full export to directory** writes `Beanconqueror.zip`, which holds **only JSON**, plus a separate **`brews/` folder** next to it containing `<brew-uuid>_flow_profile.json`, one file per shot. So send **both**: the zip, and the `brews` folder compressed (`brews.zip`) with the tablet's file manager. `just inbox` merges any `brews*.zip` newer than the export into the same import, then runs `parse` and `flows`. Top-level JSON keys: `BEANS, BREWS, MILL, PREPARATION, SETTINGS, VERSION`.
 
@@ -108,23 +109,10 @@ Flow profile files contain **scale data only**: `weight` (`brew_time`, `actual_s
 
 Inside each zip: `Beanconqueror.json`, plus chunk files `Beanconqueror_Brews_N.json` (500 brews each) and `Beanconqueror_Beans_N.json`. `parse.nu` merges the chunk files.
 
-Connecting (one-time setup, then reconnect as needed):
-1. On the tablet, turn on Developer options, then **Wireless debugging**. The tablet must be on the same Wi-Fi network as this computer.
-2. Tap **Pair device with pairing code**, then run `just tablet-pair <ip:pairport> <code>`.
-3. Run `just tablet-connect <ip:port>`, using the port shown on the main Wireless debugging screen, which is different from the pairing port. The address is saved in `.tablet` (gitignored). The port changes when Wireless debugging restarts, so run `tablet-connect` again after that.
-4. Or plug in USB with USB debugging on. No pairing is needed.
-
-Then run `just pull`. It uses the newest full export if there is one, otherwise the newest automatic backup (`just pull --auto` always takes the newest). It copies the zip into `data/raw/<timestamp>-full|auto/`, unzips it and runs `parse`.
-
 ## Tasks
 
 | Task | What it does |
 |------|--------------|
-| `just tablet-pair <ip:port> <code>` | Pair with the tablet's Wireless debugging |
-| `just tablet-connect <ip:port>` | Connect over Wi-Fi and remember the address |
-| `just tablet-status` | Show the connected tablet, its Android version, and whether Beanconqueror is installed |
-| `just tablet-list` | List the Beanconqueror export zips on the tablet |
-| `just pull [--auto] [--no-parse]` | Pull the newest export into `data/raw/` and parse it |
 | `just inbox [--no-parse]` | Import the newest `~/Downloads/Beanconqueror*.zip` (sent with KDE Connect) and parse it |
 | `just import <file>` | Import an export that is already on this computer |
 | `just parse` | Flatten the newest import into `data/derived/beans.csv` and `brews.csv`. Bag columns: `coffee` (trimmed name), `roaster` (trimmed), `bean_uuid` (the bag), `roast_date` (local date), `days_off_roast` (brews only) |

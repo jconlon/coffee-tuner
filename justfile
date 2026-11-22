@@ -6,26 +6,6 @@ set shell := ["nu", "-c"]
 default:
     @just --list
 
-# Pair with tablet Wireless debugging (Developer options → Wireless debugging → Pair device with pairing code)
-tablet-pair addr code:
-    nu scripts/tablet.nu pair '{{addr}}' '{{code}}'
-
-# Connect to tablet over Wireless debugging (ip:port from that screen) and remember it in .tablet
-tablet-connect addr:
-    nu scripts/tablet.nu connect '{{addr}}'
-
-# Show connected tablet, Android version, and whether Beanconqueror is installed
-tablet-status:
-    nu scripts/tablet.nu status
-
-# List Beanconqueror export zips found on the tablet
-tablet-list:
-    nu scripts/tablet.nu list
-
-# Pull newest export from tablet into data/raw and parse it (prefers full export; `just pull --auto` for newest auto backup)
-pull *flags:
-    nu scripts/tablet.nu pull {{flags}}
-
 # Import newest Beanconqueror*.zip (+ brews*.zip flow profiles) from ~/Downloads (sent via KDE Connect) and parse it
 inbox *flags:
     nu scripts/inbox.nu {{flags}}

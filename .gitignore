@@ -1,5 +1,4 @@
 .devbox/
-.tablet
 
 # Raw Beanconqueror exports stay local (may contain photos, brew GPS, app settings)
 data/raw/*
