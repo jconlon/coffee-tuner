@@ -57,6 +57,15 @@ Rules:
 4. Account for roast age. Beans are usually best 7–21 days after roasting for espresso. Expect the grind to drift finer as beans age.
 5. When the shot curve and the taste disagree, go with the taste and note the disagreement.
 
+## Tracking dial-ins with GitHub issues
+
+Each bean bag being dialed in gets **one GitHub issue** with the label `dial-in`, titled `Dial-in: <Bean> (<Roaster>, roasted <YYYY-MM-DD>)`.
+- **Issue body:** setup, the target recipe (best previous shot for this bean, if any), a table of attempts so far, where things stand, and the next shot to try. Update it as the picture changes.
+- **One comment per attempt** after each `just inbox`: the shot numbers (grind, dose → yield, ratio, time, temperature, flow g/s, rating, taste note), the weight curve compared with the target, what it means, and the next single change. Use `gh issue comment <n> --body-file <file>`.
+- When the bag is dialed in, post the final recipe as a comment, copy it to `beans/<slug>.md`, and close the issue.
+- Find open dial-ins with `gh issue list --label dial-in`.
+- The repo is public, so never put anything from `SETTINGS` or the raw exports in issues.
+
 ## What Claude should do here
 
 - When new exports arrive, parse them and summarize recent brews per bean: grind, ratio, time, temperature, rating, and flow behavior.

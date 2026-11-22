@@ -261,14 +261,15 @@ aade8ac2-15e7-4d2c-a05f-f5a7946050d5,2026-11-01 16:52,Rawanda Rwamatamu,11,19,35
 9062a7e1-ede0-4246-a81e-b22c3e2dc03a,2026-11-02 14:34,Rawanda Rwamatamu,11,19,38.4,0,24,95,1,brews/9062a7e1-ede0-4246-a81e-b22c3e2dc03a_flow_profile.json,,2.02
 2d7c3870-593a-4025-92dd-b63941c7e2af,2026-11-02 14:53,Rawanda Rwamatamu,11,19,36,0,19,93,3,brews/2d7c3870-593a-4025-92dd-b63941c7e2af_flow_profile.json,,1.89
 2615f1b0-746b-4da5-9059-523a631797dd,2026-11-02 15:47,Rawanda Rwamatamu,11,19,37,0,22,95,3,brews/2615f1b0-746b-4da5-9059-523a631797dd_flow_profile.json,,1.95
-e3592332-8609-402f-9d6a-35f7706ea8ce,2026-11-05 15:42,Signature ,12,18.5,44.7,0,20,95,4,brews/e3592332-8609-402f-9d6a-35f7706ea8ce_flow_profile.json,Targetvis 44 out at 22 to 24 seconds ,2.42
-d8e4cc9d-4493-4dff-99e0-b709f262aa6b,2026-11-06 16:43,Signature ,11.5,18.5,47.2,0,17,95,3,brews/d8e4cc9d-4493-4dff-99e0-b709f262aa6b_flow_profile.json,,2.55
-6c3cffcc-2e60-4943-b5e8-2df157b67f86,2026-11-07 15:03,Signature ,11,18.5,45.5,0,20,95,4,brews/6c3cffcc-2e60-4943-b5e8-2df157b67f86_flow_profile.json,,2.46
-9f2fcf90-1493-482d-a182-e67b866ef297,2026-11-08 15:51,Signature ,10,18.5,45.9,0,26,95,4,brews/9f2fcf90-1493-482d-a182-e67b866ef297_flow_profile.json,,2.48
-8c3a5867-3c39-472b-b1ff-7e1bf8bc5e71,2026-11-10 15:07,Signature ,10,18.5,44,0,24,95,4,brews/8c3a5867-3c39-472b-b1ff-7e1bf8bc5e71_flow_profile.json,,2.38
-dab8873d-0860-4f62-8860-dd3449089c87,2026-11-12 14:51,Signature ,10,18.5,44.1,0,27,95,3,brews/dab8873d-0860-4f62-8860-dd3449089c87_flow_profile.json,,2.38
-29f60aba-f3fa-4e69-9759-12b2d0d1bba5,2026-11-13 13:42,Signature ,11,18.5,47.5,0,13,95,3,brews/29f60aba-f3fa-4e69-9759-12b2d0d1bba5_flow_profile.json,,2.57
-224caf19-e272-419b-96f3-c00d7f0f2c6e,2026-11-13 14:53,Signature ,10.2,18.5,42.5,0,22,95,3,brews/224caf19-e272-419b-96f3-c00d7f0f2c6e_flow_profile.json,,2.3
-e1aa363c-8af5-4f01-b94c-2d91021ff054,2026-11-14 14:40,Signature ,10.2,18.5,43.9,0,29,95,3,brews/e1aa363c-8af5-4f01-b94c-2d91021ff054_flow_profile.json,,2.37
-33464e14-127c-4d03-9267-df3e9f8908f5,2026-11-16 15:00,Rawanda Rwamatamu,11,18.5,40.1,0,28,95,1,brews/33464e14-127c-4d03-9267-df3e9f8908f5_flow_profile.json,"Dark and bitter. Can drink it, but it's not good.",2.17
-cfc8cf3b-3efb-49fd-bbc5-7e356d8829d2,2026-11-21 15:26,Rawanda Rwamatamu,11,19,42.5,0,35,95,-1,brews/cfc8cf3b-3efb-49fd-bbc5-7e356d8829d2_flow_profile.json,"Dark, bitter, cannot drink it.",2.24
+e3592332-8609-402f-9d6a-35f7706ea8ce,2026-11-05 15:42,Signature ,12,18.5,44.7,0,20,90,4,brews/e3592332-8609-402f-9d6a-35f7706ea8ce_flow_profile.json,Targetvis 44 out at 22 to 24 seconds ,2.42
+d8e4cc9d-4493-4dff-99e0-b709f262aa6b,2026-11-06 16:43,Signature ,11.5,18.5,47.2,0,17,90,3,brews/d8e4cc9d-4493-4dff-99e0-b709f262aa6b_flow_profile.json,,2.55
+6c3cffcc-2e60-4943-b5e8-2df157b67f86,2026-11-07 15:03,Signature ,11,18.5,45.5,0,20,90,4,brews/6c3cffcc-2e60-4943-b5e8-2df157b67f86_flow_profile.json,,2.46
+9f2fcf90-1493-482d-a182-e67b866ef297,2026-11-08 15:51,Signature ,10,18.5,45.9,0,26,90,4,brews/9f2fcf90-1493-482d-a182-e67b866ef297_flow_profile.json,,2.48
+8c3a5867-3c39-472b-b1ff-7e1bf8bc5e71,2026-11-10 15:07,Signature ,10,18.5,44,0,24,90,4,brews/8c3a5867-3c39-472b-b1ff-7e1bf8bc5e71_flow_profile.json,,2.38
+dab8873d-0860-4f62-8860-dd3449089c87,2026-11-12 14:51,Signature ,10,18.5,44.1,0,27,90,3,brews/dab8873d-0860-4f62-8860-dd3449089c87_flow_profile.json,,2.38
+29f60aba-f3fa-4e69-9759-12b2d0d1bba5,2026-11-13 13:42,Signature ,11,18.5,47.5,0,13,90,3,brews/29f60aba-f3fa-4e69-9759-12b2d0d1bba5_flow_profile.json,,2.57
+224caf19-e272-419b-96f3-c00d7f0f2c6e,2026-11-13 14:53,Signature ,10.2,18.5,42.5,0,22,90,3,brews/224caf19-e272-419b-96f3-c00d7f0f2c6e_flow_profile.json,,2.3
+e1aa363c-8af5-4f01-b94c-2d91021ff054,2026-11-14 14:40,Signature ,10.2,18.5,43.9,0,29,90,3,brews/e1aa363c-8af5-4f01-b94c-2d91021ff054_flow_profile.json,,2.37
+33464e14-127c-4d03-9267-df3e9f8908f5,2026-11-16 15:00,Rawanda Rwamatamu,11,18.5,40.1,0,28,90,1,brews/33464e14-127c-4d03-9267-df3e9f8908f5_flow_profile.json,"Dark and bitter. Can drink it, but it's not good.",2.17
+cfc8cf3b-3efb-49fd-bbc5-7e356d8829d2,2026-11-21 15:26,Rawanda Rwamatamu,11,19,42.5,0,35,90,-1,brews/cfc8cf3b-3efb-49fd-bbc5-7e356d8829d2_flow_profile.json,"Dark, bitter, cannot drink it.",2.24
+a61aec43-f59f-43ba-b8d0-71bec2df684c,2026-11-21 16:58,Rawanda Rwamatamu,11.5,19,37.8,0,24,92,0,brews/a61aec43-f59f-43ba-b8d0-71bec2df684c_flow_profile.json,"Barely drinkable,  flat, dark, on bitter side.",1.99
